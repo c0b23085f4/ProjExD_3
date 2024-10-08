@@ -36,16 +36,16 @@ class Bird:
         pg.K_RIGHT: (+5, 0),
     }
     img0 = pg.transform.rotozoom(pg.image.load("fig/3.png"), 0, 0.9)
-    img = pg.transform.flip(img0, True, False)  # デフォルトのこうかとん（右向き）
-    imgs = {  # 0度から反時計回りに定義
-        (+5, 0): img,  # 右
+    img = pg.transform.flip(img0, True, False)          # デフォルトのこうかとん（右向き）
+    imgs = {                                            # 0度から反時計回りに定義
+        (+5, 0): img,                                   # 右
         (+5, -5): pg.transform.rotozoom(img, 45, 0.9),  # 右上
-        (0, -5): pg.transform.rotozoom(img, 90, 0.9),  # 上
-        (-5, -5): pg.transform.rotozoom(img0, -45, 0.9),  # 左上
-        (-5, 0): img0,  # 左
-        (-5, +5): pg.transform.rotozoom(img0, 45, 0.9),  # 左下
+        (0, -5): pg.transform.rotozoom(img, 90, 0.9),   # 上
+        (-5, -5): pg.transform.rotozoom(img0, -45, 0.9),# 左上
+        (-5, 0): img0,                                  # 左
+        (-5, +5): pg.transform.rotozoom(img0, 45, 0.9), # 左下
         (0, +5): pg.transform.rotozoom(img, -90, 0.9),  # 下
-        (+5, +5): pg.transform.rotozoom(img, -45, 0.9),  # 右下
+        (+5, +5): pg.transform.rotozoom(img, -45, 0.9), # 右下
     }
 
     def __init__(self, xy: tuple[int, int]):
