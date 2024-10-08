@@ -203,7 +203,13 @@ def main():
         clock.tick(50)
 
 class Score():
+    """
+    スコアに関するクラス
+    """
     def __init__(self):
+        """
+        スコアに必要な変数を初期化
+        """
         self.font = pg.font.SysFont("hgp創英角ﾎﾟｯﾌﾟ体", 30)
         self.score_color = (0, 0, 255)
         self.score = 0
@@ -219,7 +225,14 @@ class Score():
         screen.blit(txt, self.score_cordinate)
 
 class Explosion():
-    def __init__(self, bomb):
+    """
+    爆発に関するクラス
+    """
+    def __init__(self, bomb: pg.Surface):
+        """
+        引数に基づき爆発Surfaceを生成する
+        引数1 bomb：爆弾
+        """
         self.img = pg.image.load("fig/explosion.gif")  # ビームSurface
         self.img2 = pg.transform.flip(self.img, True, True)
         self.bomb = bomb
@@ -230,7 +243,11 @@ class Explosion():
             self.img2
         ]
 
-    def update(self, screen):
+    def update(self, screen: pg.Surface):
+        """
+        爆発を表示する関数
+        引数:screen：画面Surface
+        """
         self.life -= 1
         if (self.life > 0):
             display_expl = self.expls[self.life%2]
