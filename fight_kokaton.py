@@ -148,6 +148,7 @@ def main():
     bird = Bird((300, 200))
     beams = []
     # beam = None
+    expl_lst = []
     bomb = Bomb((255, 0, 0), 10)
     score = Score()
     bombs = [Bomb((255, 0, 0), 10) for _ in range(NUM_OF_BOMBS)]
@@ -178,6 +179,9 @@ def main():
             for i, beam in enumerate(beams):
                 if beam is not None:
                     if beam.rct.colliderect(bomb.rct):  # ビームと爆弾が衝突したら
+                        explosion = Explosion(bomb)
+                        expl_lst.append(explosion)
+                        expl_lst = [expl for expl in expl_lst if expl.life > 0]
                         beams[i], bombs[j] = None, None
                         bird.change_img(6, screen)
                         score.score += 1
@@ -185,6 +189,8 @@ def main():
             bombs = [bomb for bomb in bombs if bomb is not None]
             beams = [beam for beam in beams if beam is not None]
 
+        for expl in expl_lst:
+            expl.update(screen)
         key_lst = pg.key.get_pressed()
         bird.update(key_lst, screen)
         for beam in beams:
@@ -211,6 +217,31 @@ class Score():
         score_txt = "スコア:" + str(self.score)
         txt = self.font.render(score_txt, 0, self.score_color)
         screen.blit(txt, self.score_cordinate)
+
+class Explosion():
+    def __init__(self, bomb):
+        self.img = pg.image.load("fig/explosion.gif")  # ビームSurface
+        self.img2 = pg.transform.flip(self.img, True, True)
+        self.bomb = bomb
+        # self.rct = self.img.get_rect()
+        # self.rct2 = self.img2.get_rect()
+        # self.rct.center = bomb.rct.center
+        # self.rct2.center = bomb.rct.center
+        self.life = 1000
+
+        self.expls = [
+            self.img,
+            self.img2
+        ]
+
+    def update(self, screen):
+        self.life -= 1
+        if (self.life > 0):
+            display_expl = self.expls[self.life%2]
+            rct = display_expl.get_rect()
+            rct.center = self.bomb.rct.center
+            screen.blit(display_expl, rct)
+
 
 if __name__ == "__main__":
     pg.init()
