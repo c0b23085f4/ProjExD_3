@@ -223,11 +223,7 @@ class Explosion():
         self.img = pg.image.load("fig/explosion.gif")  # ビームSurface
         self.img2 = pg.transform.flip(self.img, True, True)
         self.bomb = bomb
-        # self.rct = self.img.get_rect()
-        # self.rct2 = self.img2.get_rect()
-        # self.rct.center = bomb.rct.center
-        # self.rct2.center = bomb.rct.center
-        self.life = 1000
+        self.life = 5
 
         self.expls = [
             self.img,
